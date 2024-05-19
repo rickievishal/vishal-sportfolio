@@ -10,6 +10,14 @@
 .pop{
   font-family: "Poppins", sans-serif;
 }
+*{
+  cursor: none;
+}
+.cursor{
+  position: fixed;
+  pointer-events: none;
+  
+}
 
 html{
   background-color: black;
