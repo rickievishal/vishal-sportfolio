@@ -170,8 +170,9 @@ export default function Home() {
       <nav className="w-full flex flex-row h-[40px] sticky top-0 right-0 border-b-[0px] border-[#FF145C] elegant bg-[#0C0C0C]">
         <ul className="h-full ">
           <li className="w-[70px] lg:w-[140px] text-sm h-full bg-[#FF145C] flex justify-center items-center text-white elegant">
-            VISHAL
+            
           </li>
+
         </ul>
         <ul className="w-full h-full flex flex-row justify-end items-center hidden lg:flex">
           <li className="w-[130px] h-full text-md bg-[#000000] flex justify-center items-center">
