@@ -11,7 +11,7 @@ export default function Home() {
     y: 0
   })
   // Easing function for smooth scroll (ease in and out)
-  const easeInOutQuad = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+  const easeInOutQuad = (t : number ) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
   // Custom scroll-to-top function
   const scrollToTop = () => {
@@ -20,7 +20,7 @@ export default function Home() {
 
     const duration = 1000; // Adjust this value for speed
 
-    const scroll = (currentTime) => {
+    const scroll = (currentTime :number) => {
       const timeElapsed = currentTime - startTime;
       const scrollDistance = easeInOutQuad(timeElapsed / duration) * start;
 
@@ -36,7 +36,7 @@ export default function Home() {
   const [varientname, setVarientname] = useState("default")
 
   useEffect(() => {
-    const cursormove = (e) => {
+    const cursormove = (e : MouseEvent) :void => {
       setcursor({
         x: e.clientX,
         y: e.clientY
@@ -48,7 +48,7 @@ export default function Home() {
       window.removeEventListener("mousemove", cursormove)
     }
   }, [])
-  const variants = {
+  const variants  = {
     default: {
       x: cursor.x,
       y: cursor.y,
@@ -106,10 +106,12 @@ export default function Home() {
       },
     }
   };
+  type Varients = keyof typeof variants
+  
   const textenter = () => {
     setVarientname("textenter")
   }
-  const setvarient = (varientname) => {
+  const setvarient = (varientname : string) => {
     setVarientname(varientname)
   }
   return <>
