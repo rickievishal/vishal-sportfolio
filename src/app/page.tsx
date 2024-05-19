@@ -4,6 +4,8 @@ import { animate, easeInOut, motion } from "framer-motion"
 import lightflare from "./assets/images/lightflare.png"
 import blob from "./assets/images/blob.png"
 import { useEffect, useState } from "react"
+import Lenis from 'lenis'
+
 export default function Home() {
 
   const [cursor, setcursor] = useState({
@@ -11,7 +13,7 @@ export default function Home() {
     y: 0
   })
   // Easing function for smooth scroll (ease in and out)
-  const easeInOutQuad = (t : number ) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+  const easeInOutQuad = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
   // Custom scroll-to-top function
   const scrollToTop = () => {
@@ -20,7 +22,7 @@ export default function Home() {
 
     const duration = 1000; // Adjust this value for speed
 
-    const scroll = (currentTime :number) => {
+    const scroll = (currentTime: number) => {
       const timeElapsed = currentTime - startTime;
       const scrollDistance = easeInOutQuad(timeElapsed / duration) * start;
 
@@ -33,10 +35,20 @@ export default function Home() {
 
     requestAnimationFrame(scroll);
   };
+  useEffect(() => {
+    const lenis = new Lenis()
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    
+    requestAnimationFrame(raf)
+  }, [])
+
   const [varientname, setVarientname] = useState("default")
 
   useEffect(() => {
-    const cursormove = (e : MouseEvent) :void => {
+    const cursormove = (e: MouseEvent): void => {
       setcursor({
         x: e.clientX,
         y: e.clientY
@@ -48,7 +60,7 @@ export default function Home() {
       window.removeEventListener("mousemove", cursormove)
     }
   }, [])
-  const variants  = {
+  let variants = {
     default: {
       x: cursor.x,
       y: cursor.y,
@@ -65,12 +77,49 @@ export default function Home() {
         scale: { duration: 0.4, ease: "easeInOut" }, // Smooth scale 
       },
     },
-    texthoverphone:{
+    texthoverphone: {
       x: cursor.x,
       y: cursor.y,
       scale: 5,
       mixBlendMode: "difference",
       backgroundColor: "#FF145C",
+      transition: {
+        x: { duration: 0 },
+        y: { duration: 0 },
+        mixBlendMode: { duration: 0 },
+        scale: { duration: 0.5, ease: "easeInOut" },
+      },
+    },
+    texthoverdiscord: {
+      x: cursor.x,
+      y: cursor.y,
+      scale: 5,
+      mixBlendMode: "difference",
+      backgroundColor: "#5166EE",
+      transition: {
+        x: { duration: 0 },
+        y: { duration: 0 },
+        mixBlendMode: { duration: 0 },
+        scale: { duration: 0.5, ease: "easeInOut" },
+      },
+    },texthovertwitter: {
+      x: cursor.x,
+      y: cursor.y,
+      scale: 5,
+      mixBlendMode: "difference",
+      backgroundColor: "white",
+      transition: {
+        x: { duration: 0 },
+        y: { duration: 0 },
+        mixBlendMode: { duration: 0 },
+        scale: { duration: 0.5, ease: "easeInOut" },
+      },
+    },texthoverlinkedin: {
+      x: cursor.x,
+      y: cursor.y,
+      scale: 5,
+      mixBlendMode: "difference",
+      backgroundColor: "#0067BF",
       transition: {
         x: { duration: 0 },
         y: { duration: 0 },
@@ -107,11 +156,11 @@ export default function Home() {
     }
   };
   type Varients = keyof typeof variants
-  
+
   const textenter = () => {
     setVarientname("textenter")
   }
-  const setvarient = (varientname : string) => {
+  const setvarient = (varientname: string) => {
     setVarientname(varientname)
   }
   return <>
@@ -255,7 +304,7 @@ export default function Home() {
             <i className='bx bx-right-arrow-alt text-[#FF145C] -rotate-45 text-[160pt] '></i>
           </div>
         </div>
-        <div className="col-span-1 grid grid-cols-5 sm:scale-75 lg:scale-100 overflow-hidden">
+        <div className="col-span-1 grid grid-cols-5 sm:scale-75 lg:scale-100 overflow-hidden " onMouseEnter={() => setvarient("texthovertwitter")} onMouseLeave={() => setvarient("default")}>
           <div className="col-span-3 flex flex-col justify-center items-end">
             <p className=" sm:text-[45pt] lg:text-[60pt] leading-tight font-thin">
               Twitter
@@ -271,7 +320,7 @@ export default function Home() {
             <i className='bx bx-right-arrow-alt -rotate-45 text-[160pt] '></i>
           </div>
         </div>
-        <div className="col-span-1 grid grid-cols-5 sm:scale-75 lg:scale-100 overflow-hidden">
+        <div className="col-span-1 grid grid-cols-5 sm:scale-75 lg:scale-100 overflow-hidden" onMouseEnter={() => setvarient("texthoverdiscord")} onMouseLeave={() => setvarient("default")}>
           <div className="col-span-3 flex flex-col justify-center items-end">
             <p className=" sm:text-[45pt] lg:text-[60pt] leading-tight font-thin">
               Discord
@@ -287,7 +336,7 @@ export default function Home() {
             <i className='bx bx-right-arrow-alt -rotate-45 text-[160pt] '></i>
           </div>
         </div>
-        <div className="col-span-1 grid grid-cols-5 sm:scale-75 lg:scale-100 overflow-hidden">
+        <div className="col-span-1 grid grid-cols-5 sm:scale-75 lg:scale-100 overflow-hidden" onMouseEnter={() => setvarient("texthoverlinkedin")} onMouseLeave={() => setvarient("default")}>
           <div className="col-span-3 flex flex-col justify-center items-end">
             <p className=" sm:text-[45pt] lg:text-[60pt] leading-tight font-thin">
               Linkedin
