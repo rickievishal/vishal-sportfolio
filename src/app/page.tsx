@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import { animate, easeInOut, motion } from "framer-motion"
+import { animate, easeInOut, motion} from "framer-motion"
 import lightflare from "./assets/images/lightflare.png"
 import blob from "./assets/images/blob.png"
 import { useEffect, useState } from "react"
@@ -37,7 +37,7 @@ export default function Home() {
   };
   useEffect(() => {
     const lenis = new Lenis()
-    function raf(time) {
+    function raf(time :number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
     }
@@ -60,15 +60,51 @@ export default function Home() {
       window.removeEventListener("mousemove", cursormove)
     }
   }, [])
-  let variants = {
+  type MixBlendMode =
+  | "normal"
+  | "multiply"
+  | "screen"
+  | "overlay"
+  | "darken"
+  | "lighten"
+  | "color-dodge"
+  | "color-burn"
+  | "hard-light"
+  | "soft-light"
+  | "difference"
+  | "exclusion"
+  | "hue"
+  | "saturation"
+  | "color"
+  | "luminosity";
+  interface Variant {
+    x: number;
+    y: number;
+    scale: number;
+    mixBlendMode?: MixBlendMode; // Make mixBlendMode optional if not used in all variants
+    backgroundColor: string;
+    transition: {
+      x: { duration: number };
+      y: { duration: number };
+      scale: { duration: number; ease: string };
+      mixBlendMode?: { duration: number };
+      backgroundColor?: { duration: number };
+      // Add other transition properties as needed
+    };
+  }
+  
+  interface Variants {
+    [key: string]: Variant;
+  }
+  const variants: Variants = {
     default: {
       x: cursor.x,
       y: cursor.y,
       backgroundColor: "rgb(230,230,230,0.5)",
       scale: 1,
-      border: 1,
-      borderColor: "white",
 
+
+  
       transition: {
         x: { duration: 0 },
         y: { duration: 0 },
@@ -81,7 +117,7 @@ export default function Home() {
       x: cursor.x,
       y: cursor.y,
       scale: 5,
-      mixBlendMode: "difference",
+      mixBlendMode: "difference", // Adjust mixBlendMode value here
       backgroundColor: "#FF145C",
       transition: {
         x: { duration: 0 },
@@ -155,7 +191,7 @@ export default function Home() {
       },
     }
   };
-  type Varients = keyof typeof variants
+
 
   const textenter = () => {
     setVarientname("textenter")
